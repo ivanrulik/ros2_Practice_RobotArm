@@ -20,6 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'simple_publisher = practice_robotarm_py_examples.simple_publisher:main',
+            'simple_subscriber = practice_robotarm_py_examples.simple_subscriber:main',
         ],
     },
 )
