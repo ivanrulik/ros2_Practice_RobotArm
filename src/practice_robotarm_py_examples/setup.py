@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
             'simple_publisher = practice_robotarm_py_examples.simple_publisher:main',
             'simple_subscriber = practice_robotarm_py_examples.simple_subscriber:main',
+            'simple_parameter = practice_robotarm_py_examples.simple_parameter:main',
         ],
     },
 )

@@ -3,3 +3,4 @@ log/
 venv/
 build/
 install/
+.vscode/
