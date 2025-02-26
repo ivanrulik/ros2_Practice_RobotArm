@@ -124,5 +124,19 @@
         <limit effort="${effort}" lower="0.0" upper="${PI/2}" velocity="${velocity}"/>
     </joint>
 
+    <link name="rgb_camera">
+        <visual>
+            <origin rpy="-${PI/2} 0 -${PI/2}" xyz="-0.1 0.13 0.15"/>
+            <geometry>
+                <mesh filename="package://practice_robotarm_description/meshes/pi_camera.STL" scale="0.01 0.01 0.01"/>
+            </geometry>    
+        </visual>
+    </link>
+
+    <joint name="base_link_to_rgb_camera" type="fixed">
+        <parent link="base_link"/>
+        <child link="rgb_camera"/>
+        <origin rpy="0 -${PI/6} ${PI/2}" xyz="-0.02 0.5 0.2"/>
+    </joint>
 
 </robot>
