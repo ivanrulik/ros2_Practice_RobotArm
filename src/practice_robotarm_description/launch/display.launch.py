@@ -7,9 +7,11 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
+    practice_robotarm_description_dir = get_package_share_directory('practice_robotarm_description')
+
     model_arg = DeclareLaunchArgument(
         name='model',
-        default_value=os.path.join(get_package_share_directory('practice_robotarm_description'), 'urdf', 'practice_robotarm.urdf.xacro'),
+        default_value=os.path.join(practice_robotarm_description_dir, 'urdf', 'practice_robotarm.urdf.xacro'),
         description='Absolute path to robot urdf file.'
     )
     robot_description = ParameterValue(Command(['xacro ', LaunchConfiguration("model")]))
