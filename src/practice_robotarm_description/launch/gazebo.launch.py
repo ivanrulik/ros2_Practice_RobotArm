@@ -26,8 +26,15 @@ def generate_launch_description():
     
     ros_distro = os.environ['ROS_DISTRO']
     physics_engine = "" if ros_distro == "humble" else " --physics-engine gz-physics-bullet-featherstone-plugin"
+    is_ignition = "true" if ros_distro == "humble" else "false"
 
-    robot_description = ParameterValue(Command(['xacro ', LaunchConfiguration("model")]))
+    robot_description = ParameterValue(Command([
+        "xacro ",
+        LaunchConfiguration("model"),
+        " is_ignition:=",
+        is_ignition
+        ]),
+        value_type=str)
 
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
