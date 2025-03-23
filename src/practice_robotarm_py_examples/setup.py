@@ -24,6 +24,7 @@ setup(
             'simple_subscriber = practice_robotarm_py_examples.simple_subscriber:main',
             'simple_parameter = practice_robotarm_py_examples.simple_parameter:main',
             'simple_service_server = practice_robotarm_py_examples.simple_service_server:main',
+            'simple_service_client = practice_robotarm_py_examples.simple_service_client:main',
         ],
     },
 )
