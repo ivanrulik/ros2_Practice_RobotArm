@@ -1,0 +1,15 @@
+{
+    "name": "Practice Robot Arm",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "runArgs": ["--gpus=all"],
+    "workspaceFolder": "/workspace",
+    "remoteUser": "vscode",
+    "postCreateCommand": "bash -c 'colcon build --symlink-install || true'",
+    "extensions": [
+        "ms-vscode.cpptools",
+        "ms-iot.vscode-ros"
+    ]
+}
