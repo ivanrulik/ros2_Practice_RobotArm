@@ -23,4 +23,4 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt && rm /tmp/requirements.
 
 RUN echo "source /opt/ros/humble/setup.bash" >> /etc/bash.bashrc
 
-WORKDIR /workspace
+WORKDIR /workspaces

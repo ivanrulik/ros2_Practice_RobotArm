@@ -13,9 +13,9 @@
     "containerEnv": {
         "XDG_RUNTIME_DIR": "/tmp/runtime-vscode"
     },
-    "workspaceFolder": "/workspace/${localWorkspaceFolderBasename}",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "remoteUser": "vscode",
-    "postCreateCommand": "sudo chown -R vscode:vscode /workspace/${localWorkspaceFolderBasename} && colcon build --symlink-install || true",
+    "postCreateCommand": "sudo chown -R vscode:vscode /workspaces/${localWorkspaceFolderBasename} && colcon build --symlink-install || true",
     "extensions": [
         "ms-vscode.cpptools",
         "ms-iot.vscode-ros"
