@@ -7,11 +7,15 @@
     "runArgs": [
         "--gpus=all",
         "-e", "DISPLAY=${localEnv:DISPLAY}",
-        "-v", "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+        "-v", "/tmp/.X11-unix:/tmp/.X11-unix:rw",
+        "--device=/dev/dri"
     ],
-    "workspaceFolder": "/workspace",
+    "containerEnv": {
+        "XDG_RUNTIME_DIR": "/tmp/runtime-vscode"
+    },
+    "workspaceFolder": "/workspace/${localWorkspaceFolderBasename}",
     "remoteUser": "vscode",
-    "postCreateCommand": "sudo chown -R vscode:vscode /workspace && colcon build --symlink-install || true",
+    "postCreateCommand": "sudo chown -R vscode:vscode /workspace/${localWorkspaceFolderBasename} && colcon build --symlink-install || true",
     "extensions": [
         "ms-vscode.cpptools",
         "ms-iot.vscode-ros"
