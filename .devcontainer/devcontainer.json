@@ -4,10 +4,14 @@
         "dockerfile": "Dockerfile",
         "context": ".."
     },
-    "runArgs": ["--gpus=all"],
+    "runArgs": [
+        "--gpus=all",
+        "-e", "DISPLAY=${localEnv:DISPLAY}",
+        "-v", "/tmp/.X11-unix:/tmp/.X11-unix:rw"
+    ],
     "workspaceFolder": "/workspace",
     "remoteUser": "vscode",
-    "postCreateCommand": "bash -c 'colcon build --symlink-install || true'",
+    "postCreateCommand": "sudo chown -R vscode:vscode /workspace && colcon build --symlink-install || true",
     "extensions": [
         "ms-vscode.cpptools",
         "ms-iot.vscode-ros"
