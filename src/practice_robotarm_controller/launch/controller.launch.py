@@ -29,7 +29,20 @@ def generate_launch_description():
                      'use_sim_time': True}],
     )
 
-    joint_state_broadcaster = Node(
+    controller_manager = Node(
+        package='controller_manager',
+        executable='ros2_control_node',
+        parameters=[
+            {'robot_description': robot_description},
+            os.path.join(
+                get_package_share_directory('practice_robotarm_controller'),
+                'config',
+                'practice_robotarm_controllers.yaml'
+            )
+        ],
+    )
+
+    joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
         arguments=[
@@ -63,7 +76,8 @@ def generate_launch_description():
     return LaunchDescription(
         [
             robot_state_publisher_node,
-            joint_state_broadcaster,
+            controller_manager,
+            joint_state_broadcaster_spawner,
             arm_controller_spawner,
             gripper_controller_spawner
         ]

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(practice_robotarm_utils)
+project(practice_robotarm_moveit)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -7,28 +7,13 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(ament_cmake_python REQUIRED)
-find_package(rclpy REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(practice_robotarm_msgs REQUIRED)
-find_package(tf2 REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-add_executable(angle_conversion src/angle_conversion.cpp)
-ament_target_dependencies(angle_conversion rclcpp practice_robotarm_msgs tf2)
-
-ament_python_install_package(${PROJECT_NAME})
-
-install(TARGETS
-  angle_conversion
-  DESTINATION lib/${PROJECT_NAME}
-)
-
-install(PROGRAMS
-  ${PROJECT_NAME}/angle_conversion.py
-  DESTINATION lib/${PROJECT_NAME}
+install(
+  DIRECTORY launch config
+  DESTINATION share/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)

@@ -34,8 +34,10 @@ gripper_controller:
   ros__parameters:
     joints:
       - joint_4
+    # if joint_trajecotry
     # interface_name: position
-      
+
+    # elsif forward_command_controller  
     command_interfaces:
       - position
 

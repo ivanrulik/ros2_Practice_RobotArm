@@ -6,6 +6,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
        ros-humble-ros2-control ros-humble-ros2-controllers \
        ros-humble-gz-ros2-control* ros-humble-moveit* \
+       ros-humble-rmw-cyclonedds-cpp \
        libserial-dev python3-pip python3-venv sudo \
     && rm -rf /var/lib/apt/lists/*
 
