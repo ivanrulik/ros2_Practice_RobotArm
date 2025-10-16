@@ -7,10 +7,8 @@ from ament_index_python.packages import get_package_share_directory
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    is_sim_arg = DeclareLaunchArgument(
-        "is_sim",
-        default_value="True"
-    )
+    # Use sim time toggle (defaults to true for containers/sim)
+    is_sim_arg = DeclareLaunchArgument("is_sim", default_value="true")
 
     is_sim = LaunchConfiguration("is_sim")
 
@@ -19,18 +17,43 @@ def generate_launch_description():
         .robot_description(file_path=os.path.join(get_package_share_directory("practice_robotarm_description"), "urdf", "practice_robotarm.urdf.xacro"))
         .robot_description_semantic(file_path="config/practice_robotarm.srdf")
         .trajectory_execution(file_path="config/moveit_controllers.yaml")
+        .joint_limits(file_path="config/joint_limits.yaml")
+        .robot_description_kinematics(file_path="config/kinematics.yaml")
         .to_moveit_configs()
+    )
+
+    # Robot State Publisher to publish TF from the URDF
+    robot_state_publisher_node = Node(
+        package="robot_state_publisher",
+        executable="robot_state_publisher",
+        name="robot_state_publisher",
+        output="screen",
+        parameters=[{**moveit_config.robot_description, "use_sim_time": is_sim}],
     )
 
     move_group_node = Node(
         package="moveit_ros_move_group",
         executable="move_group",
         output="screen",
-        parameters=[moveit_config.to_dict(), {"use_sim_time": is_sim}, {"publish_robot_description_semantic": True}],
+        parameters=[
+            moveit_config.to_dict(),
+            {"use_sim_time": is_sim, "publish_robot_description_semantic": True},
+            {"robot_description_planning": {"cartesian_limits": {
+                "max_trans_vel": 1.0,
+                "max_trans_acc": 2.25,
+                "max_trans_dec": 2.5,
+                "max_rot_vel": 1.57
+            }}}
+        ],
         arguments=["--ros-args", "--log-level", "info"]
     )
 
-    rviz_config = os.path.join(get_package_share_directory("practice_robotarm_moveit"),"config","moveit.rviz")
+    # Use an existing RViz config from the description package (no moveit.rviz present here)
+    rviz_config = os.path.join(
+        get_package_share_directory("practice_robotarm_description"),
+        "rviz",
+        "display.rviz",
+    )
 
     rviz_node = Node(
         package="rviz2",
@@ -38,14 +61,13 @@ def generate_launch_description():
         name="rviz2",
         output="screen",
         arguments=["-d", rviz_config],
-        parameters=[moveit_config.robot_description, 
-                    moveit_config.robot_description_semantic,
-                    moveit_config.robot_description_kinematics,
-                    moveit_config.joint_limits]
+        # Provide the full MoveIt parameter set so RViz MoveIt plugin initializes cleanly
+        parameters=[{**moveit_config.to_dict(), "use_sim_time": is_sim}],
     )
 
     return LaunchDescription([
         is_sim_arg,
+        robot_state_publisher_node,
         move_group_node,
         rviz_node
     ])
