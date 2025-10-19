@@ -28,6 +28,11 @@ The packages target **ROS 2 Humble** on Ubuntu 22.04 or later. Install ROS 2 fol
 
 The container image includes GPU support so GUI tools like `rviz2` can run.
 
+If you are on **Windows 11**, open the repository in the WSL 2 environment.
+The dev container mounts the WSLg runtime so graphical ROS tools display on the
+Windows desktop. Ensure WSLg is installed (included in recent Windows 11
+releases) or run an X server such as VcXsrv.
+
 ## Building Locally
 
 Outside the dev container, ensure you have ROS 2 Humble installed and then run:
