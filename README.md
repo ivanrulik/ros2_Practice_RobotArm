@@ -28,6 +28,28 @@ The packages target **ROS 2 Humble** on Ubuntu 22.04 or later. Install ROS 2 fol
 
 The container image includes GPU support so GUI tools like `rviz2` can run.
 
+If you are on **Windows 11**, open the repository in the WSL 2 environment.
+The dev container mounts the WSLg runtime so graphical ROS tools display on the
+Windows desktop. Ensure WSLg is installed (included in recent Windows 11
+releases) or run an X server such as VcXsrv.
+
+#### Windows 11 Setup
+
+1. Install WSL 2 with an Ubuntu 22.04 distribution. In an elevated PowerShell
+   run:
+   ```powershell
+   wsl --install --distribution Ubuntu-22.04
+   ```
+2. Install [Docker Desktop](https://docs.docker.com/desktop/windows/) and enable
+   integration with the Ubuntu distribution.
+3. Install [VS Code](https://code.visualstudio.com/) with the
+   [Remote – WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl)
+   and Dev Containers extensions.
+4. Clone this repository inside the Ubuntu WSL terminal and run `code .` to open
+   VS Code.
+5. When prompted, select **Reopen in Container** to build and launch the
+   development container.
+
 ## Building Locally
 
 Outside the dev container, ensure you have ROS 2 Humble installed and then run:

@@ -7,7 +7,12 @@
     "runArgs": [
         "--gpus=all",
         "-e", "DISPLAY=${localEnv:DISPLAY}",
+        "-e", "WAYLAND_DISPLAY=${localEnv:WAYLAND_DISPLAY}",
+        "-e", "PULSE_SERVER=${localEnv:PULSE_SERVER}",
+        "-e", "XDG_RUNTIME_DIR=${localEnv:XDG_RUNTIME_DIR}",
         "-v", "/tmp/.X11-unix:/tmp/.X11-unix:rw",
+        "-v", "/mnt/wslg:/mnt/wslg",
+        "-v", "/usr/lib/wsl:/usr/lib/wsl",
         "--device=/dev/dri"
     ],
     "containerEnv": {
